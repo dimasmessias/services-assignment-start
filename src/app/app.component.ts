@@ -1,24 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from './user.service';
+import { User } from './shared/model/user.model';
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.css']
 })
-export class AppComponent
+export class AppComponent implements OnInit
 {
-	public activeUsers = ['Max', 'Anna'];
-	public inactiveUsers = ['Chris', 'Manu'];
+	public activeUsers: User[] = [];
+	public inactiveUsers: User[] = [];
+
+	constructor(private readonly userService: UserService) {}
 
 	public onSetToInactive(id: number): void
 	{
-		this.inactiveUsers.push(this.activeUsers[id]);
-		this.activeUsers.splice(id, 1);
+		this.userService.setUserStatus(id, false);
+		this.updateListOfUsers();
 	}
 
 	public onSetToActive(id: number): void
 	{
-		this.activeUsers.push(this.inactiveUsers[id]);
-		this.inactiveUsers.splice(id, 1);
+		this.userService.setUserStatus(id, true);
+		this.updateListOfUsers();
+	}
+
+	public ngOnInit(): void
+	{
+		this.activeUsers = this.userService.getUsers(true);
+		this.inactiveUsers = this.userService.getUsers(false);
+	}
+
+	private updateListOfUsers(): void
+	{
+		this.inactiveUsers = this.userService.getUsers(false);
+		this.activeUsers = this.userService.getUsers(true);
 	}
 }

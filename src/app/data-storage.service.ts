@@ -16,7 +16,6 @@ export class DataStorageService
 
 	public getUser(id: number): User
 	{
-		console.log(this.users.find((u) => u.id === id));
 		return this.users.find((u) => u.id === id);
 	}
 

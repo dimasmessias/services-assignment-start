@@ -4,6 +4,6 @@ export class User
 
 	public get getNumberOfChanges(): number
 	{
-		return this.history.values.length;
+		return this.history.length;
 	}
 }
