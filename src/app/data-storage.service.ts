@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CounterServiceService } from './counter-service.service';
+import { CounterService } from './counter.service';
 import { User } from './shared/model/user.model';
 
 @Injectable({providedIn: 'root'})
@@ -12,7 +12,7 @@ export class DataStorageService
 		new User(4, 'Manu', false, []),
 	];
 
-	constructor(private readonly counterService: CounterServiceService) {}
+	constructor(private readonly counterService: CounterService) {}
 
 	public getUser(id: number): User
 	{
